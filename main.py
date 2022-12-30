@@ -103,10 +103,8 @@ class Setup3DApp:
             data_str = self.serial_port.read(self.serial_port.inWaiting()).decode('ascii')
             # print the incoming string without putting a new-line
             # ('\n') automatically after every print()
-            num_lines = int(self.console.index('end - 1 line').split('.')[0])
             self.console['state'] = 'normal'
-            print(num_lines)
-            if num_lines == 10:
+            while int(self.console.index('end - 1 line').split('.')[0]) >= 10:
                 self.console.delete(1.0, 2.0)
             self.console.insert('end-1c', data_str)
             self.console['state'] = 'disabled'
