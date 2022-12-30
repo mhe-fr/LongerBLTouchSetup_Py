@@ -6,7 +6,7 @@ import serial
 
 class Setup3DApp:
     def __init__(self, master=None):
-        # build ui
+        # build ui with pygubu designer
         toplevel1 = tk.Tk() if master is None else tk.Toplevel(master)
         toplevel1.configure(height=200, width=600)
         toplevel1.title("Longer LK4 pro BLTouch Setup")
@@ -30,15 +30,19 @@ class Setup3DApp:
         self.button_save_z.configure(text='Save Z')
         self.button_save_z.grid(column=1, row=3)
         self.button_save_z.configure(command=self.on_click_save_z)
-        self.button_test = ttk.Button(frame1)
-        self.button_test.configure(text='Test')
-        self.button_test.grid(column=0, row=4)
-        self.button_test.configure(command=self.on_click_test)
+        self.button_goto_z0 = ttk.Button(frame1)
+        self.button_goto_z0.configure(text='Goto Z0')
+        self.button_goto_z0.grid(column=0, row=4)
+        self.button_goto_z0.configure(command=self.on_click_goto_z0)
         self.button_open_com = ttk.Button(frame1)
         self.button_open_com.configure(
             default="normal", state="normal", text='Open COM')
         self.button_open_com.grid(column=1, row=0)
         self.button_open_com.configure(command=self.on_click_open_com)
+        self.button_goto_z10 = ttk.Button(frame1)
+        self.button_goto_z10.configure(text='Goto Z10')
+        self.button_goto_z10.grid(column=0, row=5)
+        self.button_goto_z10.configure(command=self.on_click_goto_z10)
         frame1.grid(column=0, row=0)
         frame1.columnconfigure(0, minsize=100)
         frame2 = ttk.Frame(toplevel1)
@@ -56,6 +60,7 @@ class Setup3DApp:
         self.console.grid(column=0, row=0)
         frame2.grid(column=1, row=0)
         toplevel1.bind("<Destroy>", self.close_app, add="")
+
         # Main widget
         self.mainwindow = toplevel1
 
@@ -75,12 +80,14 @@ class Setup3DApp:
         self.serial_port.write(b'M114\n')
 
     def on_click_save_z(self):
-        self.serial_port.write(b'M851 Z '+bytes(self.entry_z.get(), 'ascii')+b'\nM500\nM211 S1\nG28 Z0\n')
+        self.serial_port.write(b'M851 Z'+bytes(self.entry_z.get(), 'ascii')+b'\nM500\nM211 S1\nG28 Z0\n')
 
-    def on_click_test(self):
-        self.serial_port.write(b' G1 F60 Z10\n')
-        self.serial_port.write(b' G1 F60 Z0\n')
-        self.serial_port.write(b' G1 F60 Z10\n')
+    def on_click_goto_z0(self):
+        self.serial_port.write(b'G1 F60 Z10\n')
+        self.serial_port.write(b'G1 F60 Z0\n')
+
+    def on_click_goto_z0(self):
+            self.serial_port.write(b'G1 F60 Z10\n')
 
     def close_app(self, event=None):
         self.serial_port.close()

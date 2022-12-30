@@ -66,9 +66,9 @@
           </object>
         </child>
         <child>
-          <object class="ttk.Button" id="button_test" named="True">
-            <property name="command" type="command" cbtype="simple">on_click_test</property>
-            <property name="text" translatable="yes">Test</property>
+          <object class="ttk.Button" id="button_goto_z0" named="True">
+            <property name="command" type="command" cbtype="simple">on_click_goto_z0</property>
+            <property name="text" translatable="yes">Goto Z0</property>
             <layout manager="grid">
               <property name="column">0</property>
               <property name="row">4</property>
@@ -84,6 +84,16 @@
             <layout manager="grid">
               <property name="column">1</property>
               <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="button_goto_z10" named="True">
+            <property name="command" type="command" cbtype="simple">on_click_goto_z10</property>
+            <property name="text" translatable="yes">Goto Z10</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">5</property>
             </layout>
           </object>
         </child>
