@@ -61,6 +61,8 @@ class Setup3DApp:
         frame2.grid(column=1, row=0)
         toplevel1.bind("<Destroy>", self.close_app, add="")
 
+        self.serial_port = None
+
         # Main widget
         self.mainwindow = toplevel1
 
@@ -86,11 +88,12 @@ class Setup3DApp:
         self.serial_port.write(b'G1 F60 Z10\n')
         self.serial_port.write(b'G1 F60 Z0\n')
 
-    def on_click_goto_z0(self):
+    def on_click_goto_z10(self):
             self.serial_port.write(b'G1 F60 Z10\n')
 
     def close_app(self, event=None):
-        self.serial_port.close()
+        if self.serial_port:
+            self.serial_port.close()
         print("com Closed")
         # self.mainwindow.destroy()
 
